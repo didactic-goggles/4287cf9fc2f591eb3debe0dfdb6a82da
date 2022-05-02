@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store/store';
 import { fetchProducts } from './productsAPI';
-import Product from './Product.model';
+import Product, { IProductData } from './Product.model';
 
 export interface ProductsState {
   products: Product[];
@@ -44,10 +44,9 @@ export const productsSlice = createSlice({
         };
         return;
       }
-      state.filteredProducts = state.products
-        .filter(
-          (product) => JSON.stringify(product).indexOf(action.payload) !== -1
-        );
+      state.filteredProducts = state.products.filter(
+        (product) => JSON.stringify(product).indexOf(action.payload) !== -1
+      );
       state.pagination = {
         totalPage: Math.ceil(state.filteredProducts.length / 10),
         currentPage: 1,
@@ -68,11 +67,11 @@ export const productsSlice = createSlice({
       })
       .addCase(getProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.products = action.payload.products as Product[];
-        state.filteredProducts = action.payload.products.slice(
-          0,
-          10
-        ) as Product[];
+        const productsArray: Product[] = action.payload.products.map(
+          (p: IProductData) => new Product(p)
+        );
+        state.products = productsArray;
+        state.filteredProducts = productsArray;
         state.pagination = {
           totalPage: Math.ceil(state.products.length / 10),
           currentPage: 1,

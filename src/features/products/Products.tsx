@@ -9,7 +9,7 @@ import {
   productsPagination
 } from './productsSlice';
 import Product from './Product';
-// import styles from './Products.module.css';
+import styles from './Products.module.scss';
 
 export function Products() {
   const products = useAppSelector(productsData);
@@ -44,7 +44,7 @@ export function Products() {
       <label htmlFor="product-search">Search:</label>
       <input type="text" id="product-search" value={searchProduct}
         onChange={onChangeSearchTitle} />
-      <div>
+      <div className={styles.products}>
         {products.map(product => <Product product={product} key={product.id} />)}
       </div>
       <div>

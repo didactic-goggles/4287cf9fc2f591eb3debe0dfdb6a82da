@@ -1,5 +1,7 @@
+import { IProductData } from "./Product.model";
+
 export function fetchProducts() {
-  return new Promise<{ products: {}[] }>(async (resolve) =>
+  return new Promise<{ products: IProductData[] }>(async (resolve) =>
     fetch('https://teknasyon.netlify.app/.netlify/functions/products', {
       method: 'GET',
       headers: {

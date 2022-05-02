@@ -9,7 +9,7 @@ import {
   productsPagination
 } from './productsSlice';
 import Product from './Product';
-import styles from './Products.module.scss';
+import styles from './Products.module.css';
 
 export function Products() {
   const products = useAppSelector(productsData);

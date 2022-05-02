@@ -1,5 +1,6 @@
 import React from 'react';
-import ProductModel from './Product.model';
+import { useNavigate } from 'react-router-dom';
+import ProductModel from '../../../models/Product.model';
 import styles from './Product.module.scss';
 
 type ProductProps = {
@@ -8,8 +9,12 @@ type ProductProps = {
 
 const Product: React.FC<ProductProps> = (props) => {
   const { product } = props;
+  const navigate = useNavigate();
+  const onProductClick = () => {
+    navigate(`/product/${product.id}`);
+  };
   return (
-    <div className={styles.product}>
+    <div className={styles.product} onClick={onProductClick}>
       <h3>{product.title}</h3>
       <span>{product.price.toString()}</span>
     </div>

@@ -1,4 +1,4 @@
-import { IProductData } from "./Product.model";
+import { IProductData } from "../models/Product.model";
 
 export function fetchProducts() {
   return new Promise<{ products: IProductData[] }>(async (resolve) =>

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store/store';
-import { fetchProducts } from './productsAPI';
-import Product, { IProductData } from './Product.model';
+import { fetchProducts } from '../../api/productsAPI';
+import Product, { IProductData } from '../../models/Product.model';
 
 export interface ProductsState {
   products: Product[];
@@ -45,7 +45,7 @@ export const productsSlice = createSlice({
         return;
       }
       state.filteredProducts = state.products.filter(
-        (product) => JSON.stringify(product).indexOf(action.payload) !== -1
+        (product) => product.title.toLowerCase().indexOf(action.payload.toLowerCase()) !== -1
       );
       state.pagination = {
         totalPage: Math.ceil(state.filteredProducts.length / 10),

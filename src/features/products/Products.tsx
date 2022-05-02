@@ -1,21 +1,20 @@
-import React, { useEffect, ChangeEvent, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import {
-  searchProducts,
   paginateProducts,
   getProducts,
   productsData,
   productsStatus,
   productsPagination
 } from './productsSlice';
-import Product from './Product';
-import styles from './Products.module.css';
+import Product from './product-item/Product';
+import styles from './Products.module.scss';
+import Search from './search/Search';
 
-export function Products() {
+const Products: React.FC = () => {
   const products = useAppSelector(productsData);
   const status = useAppSelector(productsStatus);
   const pagination = useAppSelector(productsPagination);
-  const [searchProduct, setSearchProduct] = useState<string>('')
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,14 +22,6 @@ export function Products() {
       dispatch(getProducts());
     }
   }, [status, dispatch])
-
-  useEffect(() => {
-    dispatch(searchProducts(searchProduct));
-  }, [searchProduct, dispatch])
-
-  const onChangeSearchTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchProduct(e.target.value);
-  };
 
   const onPaginationButtonClick = (paginationTarget: number) => {
     dispatch(paginateProducts(paginationTarget))
@@ -41,9 +32,7 @@ export function Products() {
 
   return (
     <div>
-      <label htmlFor="product-search">Search:</label>
-      <input type="text" id="product-search" value={searchProduct}
-        onChange={onChangeSearchTitle} />
+      <Search />
       <div className={styles.products}>
         {products.map(product => <Product product={product} key={product.id} />)}
       </div>
@@ -56,3 +45,5 @@ export function Products() {
     </div>
   );
 }
+
+export default Products

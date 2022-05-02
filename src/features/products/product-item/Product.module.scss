@@ -1,11 +1,10 @@
 .product {
-  flex: 1 0 auto;
+  position: relative;
   padding: 1rem;
   background: linear-gradient(101.09deg, #e4edfb 30.14%, #f7f1f7 113.3%);
   border-radius: 8px;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
   transition: transform .15s ease-in;
-  cursor: pointer;
   // border: 1px solid transparent;
 
   &:hover {
@@ -17,5 +16,13 @@
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
+  }
+
+  a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
   }
 }

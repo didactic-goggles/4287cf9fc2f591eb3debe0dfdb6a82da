@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Product from '../../models/Product.model';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
@@ -7,16 +7,10 @@ import {
   productsData,
   productsStatus,
 } from '../products/productsSlice';
+import BackButton from './back-button/BackButton';
+import styles from './ProductDetails.module.scss';
 
-// import ProductModel from '../../models/Product.model';
-// import styles from './Product.module.scss';
-
-// type ProductProps = {
-//   product: ProductModel;
-// };
-
-const ProductDetails: React.FC = (props) => {
-  //   const { product } = props;
+const ProductDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const { productId } = useParams<'productId'>();
   const status = useAppSelector(productsStatus);
@@ -35,7 +29,20 @@ const ProductDetails: React.FC = (props) => {
   }, [productId, products]);
 
   if (!product) return <div>Getting product data...</div>;
-  return <div>{product.title}</div>;
+  return (
+    <>
+      <BackButton />
+      <div className={`${styles.ProductDetails_container} mt-3`}>
+        <div className={styles.ProductDetails_image}>
+          <img src={product.image.src} alt={product.image.alt} />
+        </div>
+        <div className={styles.ProductDetails_body}>
+          <h2>{product.title}</h2>
+          <small className="product-details-price">{product.price}</small>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default ProductDetails;

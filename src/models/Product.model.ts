@@ -12,7 +12,7 @@ export interface IProduct {
   id: number;
   title: string;
   description: string;
-  price: number;
+  price: string;
   image: {
     alt: string;
     src: string;
@@ -23,7 +23,7 @@ export default class Product implements IProduct {
   id: number;
   title: string;
   description: string;
-  price: number;
+  price: string;
   image: {
     alt: string;
     src: string;
@@ -33,6 +33,6 @@ export default class Product implements IProduct {
     this.title = data.title;
     this.description = data.body_html;
     this.image = data.image;
-    this.price = parseInt(data.variants[0].price);
+    this.price = data.variants[0].price + ' ₺';
   }
 }

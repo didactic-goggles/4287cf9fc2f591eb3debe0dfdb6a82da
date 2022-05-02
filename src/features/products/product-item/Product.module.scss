@@ -1,4 +1,5 @@
 .product {
+  flex: 1 0 auto;
   padding: 1rem;
   background: linear-gradient(101.09deg, #e4edfb 30.14%, #f7f1f7 113.3%);
   border-radius: 8px;
@@ -10,5 +11,11 @@
   &:hover {
     transform: translateY(-.25rem);
     // background: linear-gradient(101.09deg, #e4edfb 30.14%, #fbe6fb 113.3%);
+  }
+
+  h3 {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
   }
 }

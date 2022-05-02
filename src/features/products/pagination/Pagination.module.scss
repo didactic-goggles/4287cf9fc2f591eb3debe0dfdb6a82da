@@ -7,23 +7,8 @@
     }
 
     &_button {
-        background-color: #eee;
         height: 2rem;
         width: 2rem;
         border-radius: 100px;
-        outline: none;
-        border: none;
-        display: grid;
-        place-content: center;
-        transition: background-color .15s ease-in;
-
-        &:hover:not(:disabled) {
-            cursor: pointer;
-            background-color: #ccc;
-        }
-
-        &:disabled {
-            cursor: not-allowed;
-        }
     }
 }

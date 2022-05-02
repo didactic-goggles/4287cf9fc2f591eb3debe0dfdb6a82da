@@ -16,7 +16,7 @@ const Product: React.FC<ProductProps> = (props) => {
   return (
     <div className={styles.product} onClick={onProductClick}>
       <h3>{product.title}</h3>
-      <span>{product.price.toString()}</span>
+      <span>{product.price}</span>
     </div>
   );
 };

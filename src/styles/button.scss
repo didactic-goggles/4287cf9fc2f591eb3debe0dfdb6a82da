@@ -1,0 +1,20 @@
+button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn {
+    background-color: #eee;
+    display: grid;
+    place-content: center;
+    transition: background-color .15s ease-in;
+
+    &:hover:not(:disabled) {
+        background-color: #ccc;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}

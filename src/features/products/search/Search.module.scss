@@ -1,24 +1,31 @@
 $input-width: 16rem;
 
 .search {
-    @at-root #{&}_container {
+    &_container {
         display: flex;
         justify-content: center;
         margin: 1rem auto;
         position: relative;
     }
-    @at-root #{&}_icon {
+
+    &_icon {
         display: grid;
         place-content: center;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        margin-left: -13rem;
+        margin-right: calc($input-width - 3rem);
     }
-    @at-root #{&}_input {
+
+    &_input {
         border-radius: 100px;
         height: 3rem;
         width: $input-width;
         padding-left: 3rem;
+        border: 1px solid #ccc;
+        outline: none;
+        &:focus {
+            border-color: #aaa;
+        }
     }
-  }
+}

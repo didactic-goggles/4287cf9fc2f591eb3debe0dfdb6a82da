@@ -1,7 +1,9 @@
+import { Products } from './features/products/Products';
+
 function App() {
   return (
     <div className="App">
-      test
+      <Products />
     </div>
   );
 }

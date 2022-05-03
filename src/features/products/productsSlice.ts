@@ -41,6 +41,7 @@ export const getProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
     const response = await fetchProducts();
+    if (!response.products) throw new Error('Invalid Response')
     return response;
   }
 );
@@ -48,17 +49,15 @@ export const getProducts = createAsyncThunk(
 const calculatePagination = (
   paginationState: Pagination,
   productLength: number
-) => {
-  return {
-    disabled: productLength === 0,
-    totalPage: Math.ceil(productLength / 10),
-    currentPage: 1,
-    firstIndex:
-      productLength !== 0 ? (paginationState.currentPage - 1) * 10 + 1 : 0,
-    lastIndex: productLength > 10 ? 10 : productLength,
-    totalItem: productLength,
-  };
-};
+) => ({
+  disabled: productLength === 0,
+  totalPage: Math.ceil(productLength / 10),
+  currentPage: 1,
+  firstIndex:
+    productLength !== 0 ? (paginationState.currentPage - 1) * 10 + 1 : 0,
+  lastIndex: productLength > 10 ? 10 : productLength,
+  totalItem: productLength,
+});
 
 export const productsSlice = createSlice({
   name: 'products',

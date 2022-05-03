@@ -8,18 +8,7 @@ export interface  IProductData{
     }[]
 }
 
-export interface IProduct {
-  id: number;
-  title: string;
-  description: string;
-  price: string;
-  image: {
-    alt: string;
-    src: string;
-  };
-}
-
-export default class Product implements IProduct {
+export default class Product {
   id: number;
   title: string;
   description: string;

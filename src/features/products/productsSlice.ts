@@ -50,7 +50,7 @@ const calculatePagination = (
   return {
     totalPage: Math.ceil(productLength / 10),
     currentPage: 1,
-    firstIndex: (paginationState.currentPage - 1) * 10,
+    firstIndex: (paginationState.currentPage - 1) * 10 + 1,
     lastIndex: productLength > 10 ? 10 : productLength,
     totalItem: productLength,
   };
@@ -84,16 +84,14 @@ export const productsSlice = createSlice({
     paginateProducts: (state, action: PayloadAction<number>) => {
       state.pagination.currentPage += action.payload;
       const firstIndex = (state.pagination.currentPage - 1) * 10;
-      const lastIndex = firstIndex + 9;
+      let lastIndex = firstIndex + 10;
       state.pagination.firstIndex = firstIndex;
-      state.pagination.lastIndex =
-        lastIndex > state.filteredProducts.length
-          ? state.filteredProducts.length - 1
-          : lastIndex;
+      state.pagination.lastIndex = lastIndex;
       state.showedProducts = state.filteredProducts.slice(
         firstIndex,
         lastIndex
       );
+      state.pagination.firstIndex += 1;
     },
   },
   extraReducers: (builder) => {
@@ -127,7 +125,6 @@ export const productsData = (state: RootState) => state.products.showedProducts;
 export const productsStatus = (state: RootState) => state.products.status;
 export const productsPagination = (state: RootState) =>
   state.products.pagination;
-export const productsError = (state: RootState) =>
-  state.products.error;
+export const productsError = (state: RootState) => state.products.error;
 
 export default productsSlice.reducer;

@@ -13,7 +13,7 @@ const Pagination: React.FC = () => {
   return (
     <div className={styles.pagination_container}>
       <span className="mr-2">
-        Showing {pagination.firstIndex + 1} to {pagination.lastIndex + 1} of{' '}
+        Showing {pagination.firstIndex} to {pagination.lastIndex} of{' '}
         {pagination.totalItem} entries
       </span>
       <button

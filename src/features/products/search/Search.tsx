@@ -9,7 +9,9 @@ const Search: React.FC = () => {
   const [searchValue, setSearchValue] = useState<string>('');
 
   useEffect(() => {
-    dispatch(searchProducts(searchValue));
+    setTimeout(() => {
+      dispatch(searchProducts(searchValue));
+    }, 1000);
   }, [searchValue, dispatch]);
 
   const onChangeSearchTitle = (e: ChangeEvent<HTMLInputElement>) => {

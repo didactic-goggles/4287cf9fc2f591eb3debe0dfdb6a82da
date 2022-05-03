@@ -13,6 +13,7 @@ export interface ProductsState {
 }
 
 interface Pagination {
+  disabled: boolean;
   totalPage: number;
   currentPage: number;
   firstIndex: number;
@@ -27,8 +28,9 @@ const initialState: ProductsState = {
   status: 'idle',
   error: null,
   pagination: {
+    disabled: false,
     totalPage: 0,
-    currentPage: 0,
+    currentPage: 1,
     firstIndex: 0,
     lastIndex: 0,
     totalItem: 0,
@@ -48,9 +50,11 @@ const calculatePagination = (
   productLength: number
 ) => {
   return {
+    disabled: productLength === 0,
     totalPage: Math.ceil(productLength / 10),
     currentPage: 1,
-    firstIndex: (paginationState.currentPage - 1) * 10 + 1,
+    firstIndex:
+      productLength !== 0 ? (paginationState.currentPage - 1) * 10 + 1 : 0,
     lastIndex: productLength > 10 ? 10 : productLength,
     totalItem: productLength,
   };
@@ -64,6 +68,7 @@ export const productsSlice = createSlice({
       if (action.payload.trim().length < 3) {
         state.filteredProducts = state.products;
         state.showedProducts = state.filteredProducts.slice(0, 10);
+        state.pagination.currentPage = 1;
         state.pagination = calculatePagination(
           state.pagination,
           state.products.length
@@ -82,6 +87,9 @@ export const productsSlice = createSlice({
       state.showedProducts = state.filteredProducts.slice(0, 10);
     },
     paginateProducts: (state, action: PayloadAction<number>) => {
+      if (state.filteredProducts.length === 0) {
+        return;
+      }
       state.pagination.currentPage += action.payload;
       const firstIndex = (state.pagination.currentPage - 1) * 10;
       let lastIndex = firstIndex + 10;

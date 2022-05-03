@@ -19,14 +19,14 @@ const Pagination: React.FC = () => {
       <button
         className={`btn ${styles.pagination_button} mr-2`}
         onClick={onPaginationButtonClick.bind(null, -1)}
-        disabled={pagination.currentPage === 1}
+        disabled={pagination.currentPage === 1 || pagination.disabled}
       >
         <ChevronLeft />
       </button>
       <button
         className={`btn ${styles.pagination_button}`}
         onClick={onPaginationButtonClick.bind(null, 1)}
-        disabled={pagination.currentPage === pagination.totalPage}
+        disabled={pagination.currentPage === pagination.totalPage || pagination.disabled}
       >
         <ChevronRight />
       </button>

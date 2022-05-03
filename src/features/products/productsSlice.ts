@@ -8,6 +8,7 @@ export interface ProductsState {
   filteredProducts: Product[];
   showedProducts: Product[];
   status: 'idle' | 'loading' | 'failed' | 'succeeded';
+  error: Error | null;
   pagination: Pagination;
 }
 
@@ -24,6 +25,7 @@ const initialState: ProductsState = {
   filteredProducts: [],
   showedProducts: [],
   status: 'idle',
+  error: null,
   pagination: {
     totalPage: 0,
     currentPage: 0,
@@ -45,10 +47,6 @@ const calculatePagination = (
   paginationState: Pagination,
   productLength: number
 ) => {
-  console.log(
-    (paginationState.currentPage - 1) * 10,
-    Number(productLength > 0)
-  );
   return {
     totalPage: Math.ceil(productLength / 10),
     currentPage: 1,
@@ -116,8 +114,9 @@ export const productsSlice = createSlice({
         );
         state.showedProducts = state.filteredProducts.slice(0, 10);
       })
-      .addCase(getProducts.rejected, (state) => {
+      .addCase(getProducts.rejected, (state, action) => {
         state.status = 'failed';
+        state.error = new Error(action.error.message);
       });
   },
 });
@@ -128,5 +127,7 @@ export const productsData = (state: RootState) => state.products.showedProducts;
 export const productsStatus = (state: RootState) => state.products.status;
 export const productsPagination = (state: RootState) =>
   state.products.pagination;
+export const productsError = (state: RootState) =>
+  state.products.error;
 
 export default productsSlice.reducer;

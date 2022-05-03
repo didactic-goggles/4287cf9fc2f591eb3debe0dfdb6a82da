@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Product from '../../models/Product.model';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import {
-  getProducts,
-  productsData,
-  productsStatus,
-} from '../products/productsSlice';
+import { useAppSelector } from '../../store/hooks';
+import ErrorMessage from '../ErrorMessage';
+import { productsData, productsStatus } from '../products/productsSlice';
 import BackButton from './back-button/BackButton';
 import styles from './ProductDetails.module.scss';
 
 const ProductDetails: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { productId } = useParams<'productId'>();
-  const status = useAppSelector(productsStatus);
   const products = useAppSelector(productsData);
+  const status = useAppSelector(productsStatus);
   const [product, setProduct] = useState<Product>();
-  console.log(productId);
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(getProducts());
+    const productData = products.find(
+      (p) => p.id === parseInt(productId as string)
+    );
+    if (productData) {
+      setProduct(productData);
     }
-  }, [status, dispatch]);
-
-  useEffect(() => {
-    setProduct(products.find((p) => p.id === parseInt(productId as string)));
   }, [productId, products]);
 
-  if (!product) return <div>Getting product data...</div>;
+  if (status === 'loading') return <div>Getting product data...</div>;
+  if (!product) return <ErrorMessage error={new Error('Invalid product id')} />;
   return (
     <>
       <BackButton />

@@ -7,9 +7,12 @@ import { store } from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.scss';
+import { getProducts } from './features/products/productsSlice';
 
 const container = document.getElementById('root') as HTMLElement;
 const root = createRoot(container);
+
+store.dispatch(getProducts());
 
 root.render(
   <React.StrictMode>

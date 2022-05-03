@@ -1,0 +1,11 @@
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    font-size: 1.25rem;
+    svg {
+        fill: red;
+        transform: scale(1.25);
+    }
+}

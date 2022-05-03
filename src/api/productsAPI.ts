@@ -1,7 +1,7 @@
 import { IProductData } from "../models/Product.model";
 
 export function fetchProducts() {
-  return new Promise<{ products: IProductData[] }>(async (resolve) =>
+  return new Promise<{ products: IProductData[] }>(async (resolve, reject) =>
     fetch('https://teknasyon.netlify.app/.netlify/functions/products', {
       method: 'GET',
       headers: {
@@ -10,5 +10,6 @@ export function fetchProducts() {
     })
       .then((response) => response.json())
       .then((jsonData) => resolve(jsonData))
+      .catch((error) => reject(error))
   );
 }

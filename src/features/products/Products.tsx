@@ -1,24 +1,19 @@
-import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { getProducts, productsData, productsStatus } from './productsSlice';
+import React from 'react';
+import { useAppSelector } from '../../store/hooks';
+import { productsData, productsStatus, productsError } from './productsSlice';
 import Product from './product-item/Product';
 import styles from './Products.module.scss';
 import Search from './search/Search';
 import Pagination from './pagination/Pagination';
+import ErrorMessage from '../ErrorMessage';
 
 const Products: React.FC = () => {
   const products = useAppSelector(productsData);
   const status = useAppSelector(productsStatus);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(getProducts());
-    }
-  }, [status, dispatch]);
+  const error = useAppSelector(productsError);
 
   if (status === 'loading') return <span>Loading</span>;
-
+  if (error) return <ErrorMessage error={error} />;
   return (
     <div>
       <Search />
